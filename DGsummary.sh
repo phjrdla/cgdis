@@ -17,8 +17,10 @@ else
 fi
 
 # get password for account sys for srvname
-usrpwd=$(/home/oracle/scripts/getpwd.sh $srvname SYSTEM)
-cnx="SYSTEM/${usrpwd}@$srvname"
+usrname=SYSTEM
+usrpwd=$(/home/oracle/scripts/getpwd.sh $srvname $usrname)
+[[ $usrpwd = "" ]] && { print "No credential found for $usrname and $srvname"; exit; }
+cnx="${usrname}/${usrpwd}@$srvname"
 
 sqlplus -S $cnx <<!
 set lines 200

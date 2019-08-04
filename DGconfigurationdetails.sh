@@ -17,8 +17,10 @@ else
 fi
 
 # get password for account SYS for service name
-usrpwd=$(/home/oracle/scripts/getpwd.sh $srvname SYS)
-cnxsys="SYS/${usrpwd}@$srvname"
+usrname=SYS
+usrpwd=$(/home/oracle/scripts/getpwd.sh $srvname $usrname)
+[[ $usrpwd = "" ]] && { print "No credential found for $usrname and $srvname"; exit; }
+cnxsys="${usrname}/${usrpwd}@$srvname"
 
 dgmgrl <<!
 connect $cnxsys

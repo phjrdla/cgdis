@@ -60,9 +60,11 @@ Checks connectity to databases using $brosrv1 $brosrv2
 !
 
 # get password for account sys for srvname
-usrpwd=$(/home/oracle/scripts/getpwd.sh $dbname1 SYS)
-cnx="SYS/${usrpwd}"
-print "$cnx"
+usrname=SYS
+srvname=$dbname1
+usrpwd=$(/home/oracle/scripts/getpwd.sh $srvname $usrname)
+[[ $usrpwd = "" ]] && { print "No credential found for $usrname and $srvname"; exit; }
+cnx="${usrname}/${usrpwd}"
 
 for brosrv in $brosrv1 $brosrv2
 do
