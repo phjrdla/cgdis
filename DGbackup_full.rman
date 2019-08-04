@@ -1,0 +1,7 @@
+show all;
+backup validate check logical database archivelog all;
+backup incremental level 0 database include current controlfile;
+backup archivelog all;
+list backup;
+delete noprompt obsolete;
+
